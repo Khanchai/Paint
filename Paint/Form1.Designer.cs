@@ -34,8 +34,9 @@
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
-            this.button6 = new System.Windows.Forms.Button();
+            this.color = new System.Windows.Forms.Button();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
+            this.button6 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // panel1
@@ -99,15 +100,26 @@
             this.button5.UseVisualStyleBackColor = true;
             this.button5.Click += new System.EventHandler(this.WidthLine5);
             // 
+            // color
+            // 
+            this.color.BackColor = System.Drawing.SystemColors.Control;
+            this.color.Location = new System.Drawing.Point(663, 163);
+            this.color.Name = "color";
+            this.color.Size = new System.Drawing.Size(75, 23);
+            this.color.TabIndex = 6;
+            this.color.Text = "Color";
+            this.color.UseVisualStyleBackColor = false;
+            this.color.Click += new System.EventHandler(this.ColorDialog);
+            // 
             // button6
             // 
-            this.button6.BackColor = System.Drawing.SystemColors.Control;
-            this.button6.Location = new System.Drawing.Point(663, 163);
+            this.button6.Location = new System.Drawing.Point(663, 193);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(75, 23);
-            this.button6.TabIndex = 6;
-            this.button6.UseVisualStyleBackColor = false;
-            this.button6.Click += new System.EventHandler(this.ColorDialog);
+            this.button6.TabIndex = 7;
+            this.button6.Text = "Rectangle";
+            this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.Rectangle);
             // 
             // Form1
             // 
@@ -115,6 +127,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(744, 326);
             this.Controls.Add(this.button6);
+            this.Controls.Add(this.color);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.button3);
@@ -135,8 +148,9 @@
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Button color;
         private System.Windows.Forms.ColorDialog colorDialog1;
+        private System.Windows.Forms.Button button6;
 
     }
 }

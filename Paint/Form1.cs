@@ -14,6 +14,8 @@ namespace Paint
     {
         Pen pen;
 
+        Rectangle rectangle;
+
         bool paint = false;
         bool start = true;
         bool line = true;
@@ -83,6 +85,7 @@ namespace Paint
             {
                 time = 0;
             }
+
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
@@ -118,8 +121,13 @@ namespace Paint
         private void ColorDialog (object sender, EventArgs e)
         {
             colorDialog1.ShowDialog();
-            button6.BackColor = colorDialog1.Color;
+            color.BackColor = colorDialog1.Color;
             pen.Color = colorDialog1.Color;
+        }
+
+        private void Rectangle(object sender, EventArgs e)
+        {
+              
         }
     }
 }
