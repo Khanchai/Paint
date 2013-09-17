@@ -13,13 +13,20 @@ namespace Paint
     public partial class Form1 : Form
     {
         Pen pen;
+        SolidBrush myBrush;
+        Rectangle rectang;
 
-        Rectangle rectangle;
 
         bool paint = false;
         bool start = true;
-        bool line = true;
+        bool start1 = true;
+
+        bool pencil = true;
+        bool brush = false;
         bool ellipse = false;
+        bool rectangle = false;
+        
+
         bool eraser = false;
 
         int time = 0;
@@ -39,20 +46,21 @@ namespace Paint
             if (paint)
             {
                 start = true;
+
             }
             paint = true;
+            rectang = new Rectangle(e.X, e.Y, 0, 0);
+            Invalidate();
         }
 
         private void panel1_MouseUp(object sender, MouseEventArgs e)
         {
-            
             paint = false;
             start = true;
         }
 
         private void panel1_MouseMove(object sender, MouseEventArgs e)
         {
-
             if (!paint) return;
             if (time == 0 && !start)
             {
@@ -65,55 +73,80 @@ namespace Paint
             if (start)
             {
                 point1 = new Point(e.X,e.Y);
-                point2 = new Point(e.X,e.Y);
+                point2 = new Point(e.X-1,e.Y);
                 start = false;
             }
+           
+            var graphics = panel1.CreateGraphics();
+            var formGraphics = panel1.CreateGraphics();
+            myBrush = new SolidBrush(Color.Red);
 
-            Graphics graphics = panel1.CreateGraphics();
-
-            if (line)
+            if (pencil)
             {
                 graphics.DrawLine(pen, point1, point2);
                 graphics.Dispose();
             }
-
-            if (!start)
+            if (brush)
             {
-                time++;
-            }
-            if (time > 1)
-            {
-                time = 0;
+                graphics.FillEllipse(myBrush, e.X, e.Y, 10, 10);
+                graphics.Dispose();
             }
 
+            if (rectangle)
+            {
+
+                rectang = new Rectangle(rectang.Left, rectang.Top, e.X - rectang.Left, e.Y - rectang.Top);
+//                graphics.FillRectangle(brush,rectang);
+                graphics.DrawRectangle(pen, rectang);
+                graphics.Dispose();
+            }
+
+            if (!start) { time++; }
+            if (time > 1) { time = 0; }
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
-
+            
         }
-
-        private void button1_Click(object sender, EventArgs e)
+        private void Rectangle_Btn(object sender, EventArgs e)
         {
-            bool line = true;
+            pencil = false;
+            rectangle = true;
+            brush = false;
+
         }
 
-        private void WidthLine2(object sender, EventArgs e)
+        private void Pencil_Btn(object sender, EventArgs e)
+        {
+            pencil = true;
+            rectangle = false;
+            brush = false;
+        }
+
+        private void Brush_Btn(object sender, EventArgs e)
+        {
+            pencil = false;
+            rectangle = false;
+            brush = true;
+        }
+
+        private void WidthLine2_Btn(object sender, EventArgs e)
         {
             pen.Width = 2;
         }
 
-        private void WidthLine3(object sender, EventArgs e)
+        private void WidthLine3_Btn(object sender, EventArgs e)
         {
             pen.Width = 3;
         }
 
-        private void WidthLine4(object sender, EventArgs e)
+        private void WidthLine4_Btn(object sender, EventArgs e)
         {
             pen.Width = 4;
         }
 
-        private void WidthLine5(object sender, EventArgs e)
+        private void WidthLine5_Btn(object sender, EventArgs e)
         {
             pen.Width = 5;
         }
@@ -125,9 +158,13 @@ namespace Paint
             pen.Color = colorDialog1.Color;
         }
 
-        private void Rectangle(object sender, EventArgs e)
+        private void timer1_Tick(object sender, EventArgs e)
         {
-              
+            time++;
         }
+
+
+
+
     }
 }
