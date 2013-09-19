@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,13 +11,20 @@ using System.Windows.Forms;
 
 namespace Paint
 {
+
+
     public partial class Form1 : Form
     {
         Pen pen;
+        SolidBrush solidBrushEraser;
         SolidBrush solidBrush;
         List<Rectangle> rectangles = new List<Rectangle>();
         Rectangle rectang;
 
+  
+
+        DashStyle dashStyle;
+        HatchStyle hatchStyle;
         bool paint = false;
         bool start = true;
         bool drawing;
@@ -26,7 +34,6 @@ namespace Paint
         bool ellipse = false;
         bool rectangle = false;
 
-        bool shouldpaint = false;
         bool eraser = false;
 
         int width;
@@ -37,12 +44,14 @@ namespace Paint
         Point startPoint;
         Point endPoint;
 
+       
 
         public Form1()
         {
             InitializeComponent();
             pen = new Pen(Color.Black, 1);
-            solidBrush = new SolidBrush(Color.White);
+            solidBrushEraser = new SolidBrush(Color.White);
+            solidBrush = new SolidBrush(Color.Black);
             width = 20;
             height = 20;
         }
@@ -63,10 +72,8 @@ namespace Paint
             if (paint)
             {
                 start = true;
-
             }
             paint = true;
-            shouldpaint = true;
 
             endPoint = startPoint = e.Location;
             drawing = true;
@@ -81,7 +88,6 @@ namespace Paint
 
         private void panel1_MouseMove(object sender, MouseEventArgs e)
         {
-
             if (paint)
             {
                 if (time == 0 && !start)
@@ -103,7 +109,7 @@ namespace Paint
 
                 if (eraser)
                 {
-                    graphics.FillRectangle(solidBrush, e.X, e.Y, width, height);
+                    graphics.FillRectangle(solidBrushEraser, e.X, e.Y, width, height);
                     graphics.Dispose();
                 }
 
@@ -112,23 +118,21 @@ namespace Paint
                     graphics.DrawLine(pen, startPoint, endPoint);
                     graphics.Dispose();
                 }
-                //                if (brush)
-                //                {
-                //                    graphics.FillEllipse(myBrush, e.X, e.Y, 10, 10);
-                //                    graphics.Dispose();
-                //                }
+                if (brush)
+                {
+                    graphics.FillEllipse(solidBrush, e.X, e.Y, width, height);
+                    graphics.Dispose();
+                }
 
                 if (rectangle)
                 {
                     endPoint = e.Location;
                     if (drawing) this.Invalidate();
-
-
-
-
-                    //                rectang = new Rectangle(rectang.Left, rectang.Top, e.X - rectang.Left, e.Y - rectang.Top);
-                    //                graphics.DrawRectangle(pen, getRectangle());
-                    //                graphics.Dispose();
+                    if (rectangles.Count > 0) graphics.DrawRectangles(pen, rectangles.ToArray());
+                    if (drawing) graphics.DrawRectangle(pen, getRectangle());
+//                    rectang = new Rectangle(rectang.Left, rectang.Top, e.X - rectang.Left, e.Y - rectang.Top);
+//                    graphics.DrawRectangle(pen, getRectangle());
+//                    graphics.Dispose();
                 }
 
                 if (!start)
@@ -139,13 +143,14 @@ namespace Paint
                 {
                     time = 0;
                 }
+
+
             }
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
-            if (rectangles.Count > 0) e.Graphics.DrawRectangles(pen, rectangles.ToArray());
-            if (drawing) e.Graphics.DrawRectangle(pen, getRectangle());
+            
         }
         private void Rectangle_Btn(object sender, EventArgs e)
         {
@@ -176,7 +181,7 @@ namespace Paint
             pen.Width = 2;
             width = 20;
             height = 20;
-            
+
         }
 
         private void WidthLine3_Btn(object sender, EventArgs e)
@@ -205,19 +210,20 @@ namespace Paint
             colorDialog1.ShowDialog();
             color.BackColor = colorDialog1.Color;
             pen.Color = colorDialog1.Color;
+            solidBrush.Color = colorDialog1.Color;
         }
 
-        private void timer1_Tick(object sender, EventArgs e)
-        {
-            time++;
-        }
-
-        private void button8_Click(object sender, EventArgs e)
+        private void Eraser_Btn(object sender, EventArgs e)
         {
             pencil = false;
             rectangle = false;
             brush = false;
             eraser = true;
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            time++;
         }
     }
 }

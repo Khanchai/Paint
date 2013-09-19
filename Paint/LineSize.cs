@@ -3,7 +3,7 @@ using System.Drawing;
 
 namespace Paint
 {
-    [Serializable]
+
     public class LineSize
     {
         private String name;
