@@ -74,6 +74,12 @@ namespace Paint
                 rect = EllipseTools.Draw(pen, this);
                 graphics.DrawEllipse(pen, rect);
             }
+            if (triangle)
+            {
+                rect = TriangleTools.Draw(pen,this);
+                Point[] points = { new Point(e.X,e.Y), new Point(e.X,e.Y), new Point(e.X,e.Y) };
+                graphics.DrawPolygon(pen, rect);
+            }
 
         }
 
