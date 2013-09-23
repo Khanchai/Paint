@@ -17,7 +17,7 @@ namespace Paint
         Rectangle rect;
         Graphics graphics;
         bool isDrag = false;
-//        GraphicsState initialState;
+        GraphicsState initialState;
 
         Pen pen;
         SolidBrush solidBrushEraser;
