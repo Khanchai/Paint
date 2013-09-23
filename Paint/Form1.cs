@@ -22,7 +22,6 @@ namespace Paint
         Pen pen;
         SolidBrush solidBrushEraser;
         SolidBrush solidBrush;
-        Rectangle rectang;
 
         bool paint = false;
         bool start = true;
@@ -32,6 +31,7 @@ namespace Paint
         bool brush = false;
         bool ellipse = false;
         bool rectangle = false;
+        bool triangle = false;
         bool line = false;
 
         bool eraser = false;
@@ -68,6 +68,11 @@ namespace Paint
             {
                 rect = RectangleTools.Draw(pen, this);
                 graphics.DrawRectangle(pen, rect);
+            }
+            if (ellipse)
+            {
+                rect = EllipseTools.Draw(pen, this);
+                graphics.DrawEllipse(pen, rect);
             }
 
         }
@@ -133,6 +138,8 @@ namespace Paint
             eraser = false;
             ellipse = false;
             line = false;
+            triangle = false;
+            ellipse = false;
         }
 
         private void Brush_Btn_Click(object sender, EventArgs e)
@@ -143,6 +150,8 @@ namespace Paint
             eraser = false;
             ellipse = false;
             line = false;
+            triangle = false;
+            ellipse = false;
         }
 
         private void Eraser_Btn_Click(object sender, EventArgs e)
@@ -153,6 +162,8 @@ namespace Paint
             eraser = true;
             ellipse = false;
             line = false;
+            triangle = false;
+            ellipse = false;
         }
 
         private void LineLv2_Btn_Click(object sender, EventArgs e)
@@ -184,6 +195,20 @@ namespace Paint
             eraser = false;
             ellipse = false;
             line = false;
+            triangle = false;
+            ellipse = false;
+        }
+
+        private void Triangle_Btn_Click(object sender, EventArgs e)
+        {
+            pencil = false;
+            rectangle = false;
+            brush = false;
+            eraser = false;
+            ellipse = false;
+            line = false;
+            triangle = true;
+            ellipse = false;
         }
 
         private void ColorDialog_Btn_Click(object sender, EventArgs e)
@@ -198,5 +223,19 @@ namespace Paint
         {
             time++;
         }
+
+        private void Ellipse_Btn_Click(object sender, EventArgs e)
+        {
+            pencil = false;
+            rectangle = false;
+            brush = false;
+            eraser = false;
+            ellipse = false;
+            line = false;
+            triangle = false;
+            ellipse = true;
+        }
+
+
     }
 }

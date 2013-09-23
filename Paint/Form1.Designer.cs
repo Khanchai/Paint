@@ -39,6 +39,8 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.ColorDialog_Btn = new System.Windows.Forms.Button();
+            this.Triangle_Btn = new System.Windows.Forms.Button();
+            this.Ellipse_Btn = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // Pencil_Btn
@@ -117,7 +119,7 @@
             // 
             // ColorDialog_Btn
             // 
-            this.ColorDialog_Btn.Location = new System.Drawing.Point(12, 221);
+            this.ColorDialog_Btn.Location = new System.Drawing.Point(12, 280);
             this.ColorDialog_Btn.Name = "ColorDialog_Btn";
             this.ColorDialog_Btn.Size = new System.Drawing.Size(75, 23);
             this.ColorDialog_Btn.TabIndex = 7;
@@ -125,11 +127,33 @@
             this.ColorDialog_Btn.UseVisualStyleBackColor = true;
             this.ColorDialog_Btn.Click += new System.EventHandler(this.ColorDialog_Btn_Click);
             // 
+            // Triangle_Btn
+            // 
+            this.Triangle_Btn.Location = new System.Drawing.Point(12, 221);
+            this.Triangle_Btn.Name = "Triangle_Btn";
+            this.Triangle_Btn.Size = new System.Drawing.Size(75, 23);
+            this.Triangle_Btn.TabIndex = 8;
+            this.Triangle_Btn.Text = "Triangle";
+            this.Triangle_Btn.UseVisualStyleBackColor = true;
+            this.Triangle_Btn.Click += new System.EventHandler(this.Triangle_Btn_Click);
+            // 
+            // Ellipse_Btn
+            // 
+            this.Ellipse_Btn.Location = new System.Drawing.Point(13, 251);
+            this.Ellipse_Btn.Name = "Ellipse_Btn";
+            this.Ellipse_Btn.Size = new System.Drawing.Size(75, 23);
+            this.Ellipse_Btn.TabIndex = 9;
+            this.Ellipse_Btn.Text = "Ellipse";
+            this.Ellipse_Btn.UseVisualStyleBackColor = true;
+            this.Ellipse_Btn.Click += new System.EventHandler(this.Ellipse_Btn_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(744, 499);
+            this.Controls.Add(this.Ellipse_Btn);
+            this.Controls.Add(this.Triangle_Btn);
             this.Controls.Add(this.ColorDialog_Btn);
             this.Controls.Add(this.Rectangle_Btn);
             this.Controls.Add(this.LineLv4_Btn);
@@ -159,6 +183,8 @@
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.ColorDialog colorDialog1;
         private System.Windows.Forms.Button ColorDialog_Btn;
+        private System.Windows.Forms.Button Triangle_Btn;
+        private System.Windows.Forms.Button Ellipse_Btn;
 
 
     }
