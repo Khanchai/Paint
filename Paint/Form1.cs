@@ -68,17 +68,37 @@ namespace Paint
             paint = true;
             if (rectangle)
             {
-                rect = RectangleTools.Draw(pen, this);
-                graphics.DrawRectangle(pen, rect);
+                DrawTools.Drawing = (graphic, pen1, p1, p2) =>
+                {
+                    var yMax = Math.Max(p1.Y, p2.Y);
+                    var xMax = Math.Max(p1.X, p2.X);
+                    var yMin = Math.Min(p1.Y, p2.Y);
+                    var xMin = Math.Min(p1.X, p2.X);
+
+                    graphic.DrawRectangle(pen1, p1.X, p1.Y, Math.Abs(p1.X - p2.X), Math.Abs(p1.Y - p2.Y));
+                    //graphic.DrawLine(pen1, p1.X, yMax, p2.X, yMax);
+                    //graphic.DrawLine(pen1, p2.X, yMin, p1.X, yMin);
+                    //graphic.DrawLine(pen1, xMax, p1.Y, xMax, p2.Y);
+                    //graphic.DrawLine(pen1, xMin, p2.Y, xMin, p1.Y);
+                };
+                var points = DrawTools.Draw(pen, this);
+                DrawTools.Drawing(graphics, pen, points[0], points[1]);
+
             }
             if (ellipse)
             {
-                rect = EllipseTools.Draw(pen, this);
-                graphics.DrawEllipse(pen, rect); 
+                DrawTools.Drawing = (graphic, pen1, p1, p2) =>
+                {
+                    graphic.DrawEllipse(pen1, p1.X, p1.Y, Math.Abs(p1.X - p2.X), Math.Abs(p1.Y - p2.Y));
+                };
+                var points = DrawTools.Draw(pen, this);
+                DrawTools.Drawing(graphics, pen, points[0], points[1]);
+//                rect = EllipseTools.Draw(pen, this);
+//                graphics.DrawEllipse(pen, rect); 
             }
             if (triangle)
             {
-                LineTools.Drawing = (graphic, pen1, p1, p2) =>
+                DrawTools.Drawing = (graphic, pen1, p1, p2) =>
                 {
                     //base line
                     var yBase = Math.Max(p1.Y, p2.Y);
@@ -91,19 +111,19 @@ namespace Paint
                     //right side line
                     graphic.DrawLine(pen1, p2.X, yBase, xApex, yApex);
                 };
-                var points = LineTools.Draw(pen, this);
-                LineTools.Drawing(graphics, pen, points[0], points[1]);
+                var points = DrawTools.Draw(pen, this);
+                DrawTools.Drawing(graphics, pen, points[0], points[1]);
 
             }
             if (line)
             {
-                LineTools.Drawing = (graphic, pen1, p1, p2) =>
+                DrawTools.Drawing = (graphic, pen1, p1, p2) =>
                 {
                     graphic.DrawLine(pen1, p2.X, p2.Y, p1.X, p1.Y);
                 };
-                var points = LineTools.Draw(pen, this);
+                var points = DrawTools.Draw(pen, this);
                 //graphics.DrawLine(pen, points[0], points[1]);
-                LineTools.Drawing(graphics, pen, points[0], points[1]);
+                DrawTools.Drawing(graphics, pen, points[0], points[1]);
             }
         }
 
