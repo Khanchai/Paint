@@ -16,7 +16,6 @@ namespace Paint
     {
         Rectangle rect;
         Graphics graphics;
-        bool isDrag = false;
         GraphicsState initialState;
 
         Pen pen;
@@ -43,6 +42,9 @@ namespace Paint
 
         Point startPoint;
         Point endPoint;
+
+        //Point p1;
+        //Point p2;
 
         public Form1()
         {
@@ -76,11 +78,20 @@ namespace Paint
             }
             if (triangle)
             {
-                rect = TriangleTools.Draw(pen,this);
-                Point[] points = { new Point(e.X,e.Y), new Point(e.X,e.Y), new Point(e.X,e.Y) };
-                graphics.DrawPolygon(pen, rect);
+//              rect = TriangleTools.Draw(pen,this);
+//              Point[] points = { new Point(e.X,e.Y), new Point(e.X,e.Y), new Point(e.X,e.Y) };
+//              graphics.DrawPolygon(pen, rect);
             }
-
+            if (line)
+            {
+                LineTools.Drawing = (graphic, pen1, p1, p2) =>
+                {
+                    graphic.DrawLine(pen1, p2.X, p2.Y, p1.X, p1.Y);
+                };
+                var points = LineTools.Draw(pen, this);
+                //graphics.DrawLine(pen, points[0], points[1]);
+                LineTools.Drawing(graphics, pen, points[0], points[1]);
+            }
         }
 
         private void OnMouseUp(object sender, MouseEventArgs e)
@@ -95,6 +106,7 @@ namespace Paint
             if (time == 0 && !start)
             {
                 startPoint = new Point(e.X, e.Y);
+//                p1 = new Point(e.X,e.Y);
             }
             if (time == 1 && !start)
             {
@@ -111,19 +123,24 @@ namespace Paint
             if (pencil)
             {
                 graphics.DrawLine(pen, startPoint, endPoint);
-//                graphics.Dispose();
+//              graphics.Dispose();
             }
 
             if (brush)
             {
                 graphics.FillEllipse(solidBrush, e.X, e.Y, width, height);
-//                graphics.Dispose();
+//              graphics.Dispose();
             }
 
             if (eraser)
             {
                 graphics.FillRectangle(solidBrushEraser, e.X, e.Y, width, height);
-//                graphics.Dispose();
+//              graphics.Dispose();
+            }
+            if (line)
+            {
+                
+//                graphics.DrawLine(pen, p1,p2);
             }
 
             if (!start)
@@ -136,7 +153,7 @@ namespace Paint
             }
         }
 
-        private void Pencil_Click(object sender, EventArgs e)
+        private void Pencil_Btn_Click(object sender, EventArgs e)
         {
             pencil = true;
             rectangle = false;
@@ -146,6 +163,7 @@ namespace Paint
             line = false;
             triangle = false;
             ellipse = false;
+            line = false;
         }
 
         private void Brush_Btn_Click(object sender, EventArgs e)
@@ -158,6 +176,7 @@ namespace Paint
             line = false;
             triangle = false;
             ellipse = false;
+            line = false;
         }
 
         private void Eraser_Btn_Click(object sender, EventArgs e)
@@ -170,6 +189,7 @@ namespace Paint
             line = false;
             triangle = false;
             ellipse = false;
+            line = false;
         }
 
         private void LineLv2_Btn_Click(object sender, EventArgs e)
@@ -203,6 +223,7 @@ namespace Paint
             line = false;
             triangle = false;
             ellipse = false;
+            line = false;
         }
 
         private void Triangle_Btn_Click(object sender, EventArgs e)
@@ -215,6 +236,33 @@ namespace Paint
             line = false;
             triangle = true;
             ellipse = false;
+            line = false;
+        }
+
+        private void Ellipse_Btn_Click(object sender, EventArgs e)
+        {
+            pencil = false;
+            rectangle = false;
+            brush = false;
+            eraser = false;
+            ellipse = false;
+            line = false;
+            triangle = false;
+            ellipse = true;
+            line = false;
+        }
+
+        private void Line_Btn_Click(object sender, EventArgs e)
+        {
+            pencil = false;
+            rectangle = false;
+            brush = false;
+            eraser = false;
+            ellipse = false;
+            line = false;
+            triangle = false;
+            ellipse = false;
+            line = true;
         }
 
         private void ColorDialog_Btn_Click(object sender, EventArgs e)
@@ -229,19 +277,5 @@ namespace Paint
         {
             time++;
         }
-
-        private void Ellipse_Btn_Click(object sender, EventArgs e)
-        {
-            pencil = false;
-            rectangle = false;
-            brush = false;
-            eraser = false;
-            ellipse = false;
-            line = false;
-            triangle = false;
-            ellipse = true;
-        }
-
-
     }
 }

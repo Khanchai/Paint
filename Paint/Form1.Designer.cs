@@ -41,6 +41,7 @@
             this.ColorDialog_Btn = new System.Windows.Forms.Button();
             this.Triangle_Btn = new System.Windows.Forms.Button();
             this.Ellipse_Btn = new System.Windows.Forms.Button();
+            this.Line_Btn = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // Pencil_Btn
@@ -51,7 +52,7 @@
             this.Pencil_Btn.TabIndex = 0;
             this.Pencil_Btn.Text = "Pencil";
             this.Pencil_Btn.UseVisualStyleBackColor = true;
-            this.Pencil_Btn.Click += new System.EventHandler(this.Pencil_Click);
+            this.Pencil_Btn.Click += new System.EventHandler(this.Pencil_Btn_Click);
             // 
             // Brush_Btn
             // 
@@ -147,11 +148,22 @@
             this.Ellipse_Btn.UseVisualStyleBackColor = true;
             this.Ellipse_Btn.Click += new System.EventHandler(this.Ellipse_Btn_Click);
             // 
+            // Line_Btn
+            // 
+            this.Line_Btn.Location = new System.Drawing.Point(12, 310);
+            this.Line_Btn.Name = "Line_Btn";
+            this.Line_Btn.Size = new System.Drawing.Size(75, 23);
+            this.Line_Btn.TabIndex = 10;
+            this.Line_Btn.Text = "Line";
+            this.Line_Btn.UseVisualStyleBackColor = true;
+            this.Line_Btn.Click += new System.EventHandler(this.Line_Btn_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(744, 499);
+            this.Controls.Add(this.Line_Btn);
             this.Controls.Add(this.Ellipse_Btn);
             this.Controls.Add(this.Triangle_Btn);
             this.Controls.Add(this.ColorDialog_Btn);
@@ -185,6 +197,7 @@
         private System.Windows.Forms.Button ColorDialog_Btn;
         private System.Windows.Forms.Button Triangle_Btn;
         private System.Windows.Forms.Button Ellipse_Btn;
+        private System.Windows.Forms.Button Line_Btn;
 
 
     }

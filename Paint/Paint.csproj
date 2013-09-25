@@ -55,6 +55,7 @@
     <Compile Include="DrawTools.cs" />
     <Compile Include="LineSize.cs" />
     <Compile Include="LineStyle.cs" />
+    <Compile Include="LineTools.cs" />
     <Compile Include="PaintContext.cs" />
     <Compile Include="PencilTools.cs" />
     <Compile Include="Program.cs" />
