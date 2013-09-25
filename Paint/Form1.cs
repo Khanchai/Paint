@@ -19,7 +19,7 @@ namespace Paint
         GraphicsState initialState;
 
         Pen pen;
-        SolidBrush solidBrushEraser;
+        Pen penEraser;
         SolidBrush solidBrush;
 
         bool paint = false;
@@ -53,7 +53,7 @@ namespace Paint
             DoubleBuffered = true;
             graphics = CreateGraphics();
             pen = new Pen(Color.Black, 1);
-            solidBrushEraser = new SolidBrush(Color.White);
+            penEraser = new Pen(Color.White,20);
             solidBrush = new SolidBrush(Color.Black);
 
             width = 20;
@@ -74,13 +74,26 @@ namespace Paint
             if (ellipse)
             {
                 rect = EllipseTools.Draw(pen, this);
-                graphics.DrawEllipse(pen, rect);
+                graphics.DrawEllipse(pen, rect); 
             }
             if (triangle)
             {
-//              rect = TriangleTools.Draw(pen,this);
-//              Point[] points = { new Point(e.X,e.Y), new Point(e.X,e.Y), new Point(e.X,e.Y) };
-//              graphics.DrawPolygon(pen, rect);
+                LineTools.Drawing = (graphic, pen1, p1, p2) =>
+                {
+                    //base line
+                    var yBase = Math.Max(p1.Y, p2.Y);
+                    graphic.DrawLine(pen1, p1.X, yBase, p2.X, yBase);
+
+                    var yApex = Math.Min(p1.Y, p2.Y);
+                    var xApex = (p1.X + p2.X)/2;
+                    //left side line
+                    graphic.DrawLine(pen1, p1.X, yBase, xApex, yApex);
+                    //right side line
+                    graphic.DrawLine(pen1, p2.X, yBase, xApex, yApex);
+                };
+                var points = LineTools.Draw(pen, this);
+                LineTools.Drawing(graphics, pen, points[0], points[1]);
+
             }
             if (line)
             {
@@ -134,7 +147,7 @@ namespace Paint
 
             if (eraser)
             {
-                graphics.FillRectangle(solidBrushEraser, e.X, e.Y, width, height);
+                graphics.DrawLine(penEraser, startPoint, endPoint);
 //              graphics.Dispose();
             }
             if (line)
